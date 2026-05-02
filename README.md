@@ -8,6 +8,33 @@ Main targets:
 - FOA (Frequency Offset) estimation
 - Monte Carlo performance analysis vs SNR, quantization bits, and receiver bandwidth (via decimation)
 
+The project compares multiple estimators and processing chains under controlled impairments.
+
+Algorithms currently covered:
+- FOA estimators:
+  - FFT peak-based coarse frequency estimate
+  - Classical Rife sub-bin interpolation/refinement
+  - Modified Rife (`M_Rifenew.m`) with boundary-aware handling near FFT edges
+- TOA estimators:
+  - Cross-correlation peak detection
+  - Interpolated correlation peak for sub-sample timing
+  - Rife-refined correlation peak
+  - Threshold/rising-edge methods on the ADS-B envelope
+
+Main simulation settings you can tune:
+- SNR sweep range and step
+- Quantization resolution (for example 4/8/16-bit cases)
+- Decimation factor (effective receiver bandwidth)
+- Number of Monte Carlo trials per operating point
+- Random TOA offset and random FOA generation ranges
+- Noise insertion point (variant-dependent, e.g., before/after decimation)
+- Outlier filtering/statistics policy (enabled in the newer Monte Carlo variant)
+
+Typical outputs:
+- TOA/FOA error statistics (`mean`, `std`, `rms`) across sweeps
+- Surface plots and correlation/FFT figures
+- `.mat` result files and optional `.xls` summary tables
+
 ## Current folder layout (verified)
 Everything is now in the same root folder (`src`) plus one results subfolder:
 
